@@ -1,0 +1,281 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="content">
+    <h2><i class="fas fa-chart-line"></i> Analítica de Tendencias</h2>
+    
+    <div class="search-container">
+        <form method="post" class="search-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label class="form-label">
+                    <i class="fas fa-search"></i> Búsqueda Analítica
+                </label>
+                <div class="input-wrapper">
+                    {{ form.Analiticas }}
+                    <button type="submit" class="btn-search">
+                        <i class="fas fa-search"></i> Buscar
+                    </button>
+                </div>
+                
+                {% if form.Analiticas.errors %}
+                <div class="error-message">
+                    <i class="fas fa-exclamation-circle"></i>
+                    {{ form.Analiticas.errors }}
+                </div>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+
+    {% if keyword %}
+    <div class="results-header">
+        <h3><i class="fas fa-chart-bar"></i> Resultados para: <span class="keyword">"{{ keyword }}"</span></h3>
+    </div>
+    
+    <div class="chart-container">
+        <div id="trends-widget"></div>
+        <script src="https://ssl.gstatic.com/trends_nrtr/4116_RC01/embed_loader.js"></script>
+        <div id="trends-widget" style="margin-bottom: 30px;"></div>
+
+        <script>
+            trends.embed.renderExploreWidget("TIMESERIES", {
+                comparisonItem: [{
+                    keyword: "{{ keyword|escapejs }}",
+                    geo: "AR",
+                    time: "today 12-m"
+                }],
+                category: 0,
+                property: ""
+            }, {
+                exploreQuery: "q={{ keyword|urlencode }}&date=today%2012-m&geo=AR",
+                guestPath: "https://trends.google.com:443/trends/embed/"
+            });
+        </script>
+    </div>
+
+    
+    {% endif %}
+
+ 
+    <div class="trends-card">
+        <div class="card-header">
+            <h3><i class="fas fa-fire"></i> Tendencias recientes</h3>
+        </div>
+        <div class="card-body">
+            <div class="trends-tags">
+                {% for tendencia in tendencias %}
+                <span class="trend-tag">{{ tendencia }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="card-footer">
+            <i class="fas fa-info-circle"></i> Keywords populares del momento
+        </div>
+    </div>
+</div>
+
+<style>
+    .search-container {
+        background: rgba(40, 40, 70, 0.6);
+        border-radius: 12px;
+        padding: 25px;
+        margin: 30px 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .form-group {
+        margin-bottom: 0;
+    }
+    
+    .form-label {
+        display: block;
+        font-weight: 500;
+        color: var(--accent-secondary);
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.1rem;
+    }
+    
+    .input-wrapper {
+        display: flex;
+        background: rgba(20, 20, 40, 0.8);
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .input-wrapper:focus-within {
+        border-color: var(--accent-primary);
+        box-shadow: 0 0 0 2px rgba(110, 69, 226, 0.3);
+    }
+    
+    #id_Analiticas {
+        flex: 1;
+        padding: 15px 20px;
+        background: transparent;
+        border: none;
+        color: var(--text-primary);
+        font-size: 1rem;
+        outline: none;
+    }
+    
+    #id_Analiticas::placeholder {
+        color: var(--text-secondary);
+    }
+    
+    .btn-search {
+        background: var(--accent-primary);
+        color: white;
+        border: none;
+        padding: 15px 25px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .btn-search:hover {
+        background: #5a3bbd;
+    }
+    
+    .error-message {
+        background: rgba(217, 48, 37, 0.2);
+        color: #ff6b6b;
+        padding: 12px 15px;
+        border-radius: 6px;
+        margin-top: 15px;
+        border-left: 4px solid #ff6b6b;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .results-header {
+        background: rgba(40, 40, 70, 0.6);
+        border-radius: 10px;
+        padding: 20px;
+        margin: 30px 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+    }
+    
+    .results-header h3 {
+        color: var(--accent-secondary);
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .keyword {
+        color: var(--accent-primary);
+        font-weight: 600;
+    }
+    
+    .chart-container {
+        background: rgba(40, 40, 70, 0.6);
+        border-radius: 12px;
+        padding: 25px;
+        margin: 30px 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        min-height: 400px;
+    }
+    
+    .trends-card {
+        background: rgba(40, 40, 70, 0.6);
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 30px 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .card-header {
+        background: rgba(110, 69, 226, 0.2);
+        padding: 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .card-header h3 {
+        color: var(--accent-secondary);
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .card-body {
+        padding: 25px;
+    }
+    
+    .trends-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    
+    .trend-tag {
+        background: rgba(136, 211, 206, 0.2);
+        color: var(--accent-secondary);
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+    
+    .trend-tag:hover {
+        background: var(--accent-primary);
+        color: white;
+        transform: translateY(-2px);
+    }
+    
+    .card-footer {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 15px 25px;
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Ajustes para el widget de Google Trends */
+    #trends-widget iframe {
+        width: 100% !important;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+    
+    @media (max-width: 768px) {
+        .input-wrapper {
+            flex-direction: column;
+        }
+        
+        #id_Analiticas {
+            padding: 12px 15px;
+        }
+        
+        .btn-search {
+            justify-content: center;
+            padding: 12px;
+        }
+        
+        .trends-tags {
+            justify-content: center;
+        }
+        
+        .results-header h3 {
+            flex-direction: column;
+            gap: 5px;
+        }
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,580 @@
+{% extends "base.html" %}
+
+{% block title %}Mi Página Personalizada{% endblock %}
+
+{% block content %}
+
+<section>
+    <header>
+            <h1>News Scraper</h1>
+            <p class="subtitle">Encuentra y analiza noticias de empresas en tiempo real con News Scraper. Búsquedas personalizadas, datos actualizados y analíticas de tendencias en un solo lugar.</p>
+    </header>
+
+    <section>
+            <p class="subtitle" style="text-align: center;">Iconos demostrativos del proceso de extracción y transformación de datos web a formato Excel</p>
+    </section>
+
+        <div class="container">
+        
+        
+        <div class="icon-grid">
+            <div class="icon-card">
+                <div class="icon web-icon"></div>
+                <h3 class="icon-title">Datos Web</h3>
+                <p class="icon-desc">Representa la fuente de datos desde un navegador web o página de internet.</p>
+            </div>
+            
+            <div class="icon-card">
+                <div class="icon select-icon"></div>
+                <h3 class="icon-title">Selección</h3>
+                <p class="icon-desc">Selección de datos específicos desde la página web.</p>
+            </div>
+            
+            <div class="icon-card">
+                <div class="icon process-icon"></div>
+                <h3 class="icon-title">Procesamiento</h3>
+                <p class="icon-desc">Transformación y estructuración de los datos para su exportación.</p>
+            </div>
+            
+            <div class="icon-card">
+                <div class="icon excel-icon"></div>
+                <h3 class="icon-title">Formato Excel</h3>
+                <p class="icon-desc">Hoja de cálculo de Excel donde se almacenarán los datos.</p>
+            </div>
+            
+            <div class="icon-card">
+                <div class="icon download-icon"></div>
+                <h3 class="icon-title">Descarga</h3>
+                <p class="icon-desc">Descargar o exportacion de los datos al formato Excel.</p>
+            </div>
+            
+            <div class="icon-card">
+                <div class="icon complete-icon"></div>
+                <h3 class="icon-title">Completado</h3>
+                <p class="icon-desc">Indica que el proceso ha finalizado exitosamente y los datos están disponibles.</p>
+            </div>
+        </div>
+        
+</section>
+
+<style>
+        :root {
+            --bg-primary: #0a0a1a;
+            --bg-secondary: #16162a;
+            --bg-tertiary: #1e1e38;
+            --accent-primary: #6e45e2;
+            --accent-secondary: #88d3ce;
+            --text-primary: #e6e6e6;
+            --text-secondary: #a0a0a0;
+            --success: #4CAF50;
+            --github-purple: #6e5494;
+            --star-gold: #ffd700;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Fira Code', monospace;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3a 50%, #2d2b55 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 100vh;
+            position: relative;
+            background-attachment: fixed;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(30, 30, 56, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+        }
+        
+        h1 {
+            color: var(--accent-secondary);
+            margin-bottom: 15px;
+            font-size: 2.8rem;
+            font-weight: 800;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            background: rgba(30, 30, 56, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 15px 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: var(--accent-secondary);
+            font-weight: bold;
+            font-size: 1.4rem;
+        }
+        
+        .navbar-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-secondary);
+        }
+        
+        .navbar-nav {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+        
+        .nav-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            background: rgba(110, 69, 226, 0.2);
+            color: var(--accent-secondary);
+        }
+        
+        .nav-link.active {
+            background: var(--accent-primary);
+            color: white;
+        }
+        
+        .github-corner {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+        
+        .github-link {
+            display: inline-flex;
+            align-items: center;
+            background: var(--github-purple);
+            color: white;
+            padding: 12px 18px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            gap: 10px;
+            position: relative;
+        }
+        
+        .github-link:hover {
+            background: #5a4080;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+        }
+        
+        .github-icon {
+            font-size: 1.5rem;
+        }
+        
+        .star-icon {
+            color: var(--star-gold);
+            animation: twinkle 2s infinite;
+            font-size: 1.2rem;
+        }
+        
+        @keyframes twinkle {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        .container {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Icon Grid Styles */
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .icon-card {
+            background: rgba(30, 30, 56, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 30px 25px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .icon-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border-color: rgba(110, 69, 226, 0.3);
+        }
+        
+        .icon {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .icon-title {
+            color: var(--accent-secondary);
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        
+        .icon-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        /* Icono 1: Navegador Web */
+        .web-icon {
+            background: rgba(110, 69, 226, 0.15);
+            border-radius: 12px;
+            position: relative;
+            width: 70px;
+            height: 70px;
+        }
+        
+        .web-icon::before {
+            content: "";
+            position: absolute;
+            width: 50px;
+            height: 35px;
+            background: var(--accent-primary);
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .web-icon::after {
+            content: "";
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #ff5722;
+            border-radius: 50%;
+            top: 12px;
+            left: 15px;
+            box-shadow: 20px 0 0 #4caf50, 40px 0 0 #ffeb3b;
+        }
+        
+        /* Icono 2: Selección de Datos */
+        .select-icon {
+            background: rgba(136, 211, 206, 0.15);
+            border-radius: 50%;
+            position: relative;
+        }
+        
+        .select-icon::before {
+            content: "";
+            position: absolute;
+            width: 40px;
+            height: 25px;
+            border: 2px solid var(--accent-secondary);
+            border-radius: 5px;
+        }
+        
+        .select-icon::after {
+            content: "";
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: var(--accent-secondary);
+            border-radius: 3px;
+            bottom: 15px;
+            right: 15px;
+        }
+        
+        /* Icono 3: Procesamiento */
+        .process-icon {
+            background: rgba(255, 152, 0, 0.15);
+            border-radius: 12px;
+            position: relative;
+        }
+        
+        .process-icon::before {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 35px;
+            background: #ff9800;
+            border-radius: 20px;
+            left: 15px;
+        }
+        
+        .process-icon::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 35px;
+            background: #ff9800;
+            border-radius: 20px;
+            right: 15px;
+            animation: processing 1.5s infinite alternate;
+        }
+        
+        @keyframes processing {
+            0% { height: 15px; }
+            100% { height: 35px; }
+        }
+        
+        /* Icono 4: Excel */
+        .excel-icon {
+            background: rgba(76, 175, 80, 0.15);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .excel-icon::before {
+            content: "";
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #21a366 0%, #107c41 100%);
+            transform: rotate(45deg);
+        }
+        
+        .excel-icon::after {
+            content: "X";
+            position: absolute;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        /* Icono 5: Descarga */
+        .download-icon {
+            background: rgba(63, 81, 181, 0.15);
+            border-radius: 50%;
+            position: relative;
+        }
+        
+        .download-icon::before {
+            content: "";
+            position: absolute;
+            width: 30px;
+            height: 20px;
+            background: #3f51b5;
+            border-radius: 3px;
+            top: 25px;
+        }
+        
+        .download-icon::after {
+            content: "";
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-right: 3px solid white;
+            border-bottom: 3px solid white;
+            transform: rotate(45deg);
+            top: 18px;
+        }
+        
+        /* Icono 6: Listo/Completado */
+        .complete-icon {
+            background: rgba(76, 175, 80, 0.15);
+            border-radius: 50%;
+            position: relative;
+        }
+        
+        .complete-icon::before {
+            content: "";
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--success);
+        }
+        
+        .complete-icon::after {
+            content: "";
+            position: absolute;
+            width: 15px;
+            height: 25px;
+            border-right: 3px solid white;
+            border-bottom: 3px solid white;
+            transform: rotate(45deg);
+            top: 18px;
+            left: 28px;
+        }
+        
+        .usage-section {
+            background: rgba(30, 30, 56, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 50px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .usage-title {
+            color: var(--accent-secondary);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        pre {
+            background: #1a1a2e;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .code-comment {
+            color: #75715e;
+        }
+        
+        .tag {
+            color: #f92672;
+        }
+        
+        .attribute {
+            color: #a6e22e;
+        }
+        
+        .value {
+            color: #e6db74;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: var(--text-secondary);
+            margin-top: 40px;
+            font-size: 0.95rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+            }
+            
+            .navbar-nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            
+            .icon-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+            
+            .github-corner {
+                top: 15px;
+                right: 15px;
+            }
+            
+            .github-link span {
+                display: none;
+            }
+            
+            .github-icon {
+                font-size: 1.3rem;
+            }
+            
+            .star-icon {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .github-corner {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+            }
+            
+            .github-link {
+                padding: 10px 12px;
+            }
+            
+            .icon-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+        }
+    </style>
+
+{% endblock %}
+

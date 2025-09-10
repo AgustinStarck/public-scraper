@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="content">
+    <h2><i class="fas fa-rss-square"></i> Obtención de datos RSS</h2>
+    
+    <div class="cards-container">
+        <div class="card-option">
+            <a href="{% url 'resultados_rss' %}" class="card-link">
+                <div class="card-icon">
+                    <i class="fas fa-rss-square"></i>
+                </div>
+                <h3>RSS Scraper</h3>
+                <p>Obten datos a partir de RSS open source</p>
+            </a>
+        </div>
+        
+        
+    </div>
+</div>
+
+<style>
+    .cards-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        margin-top: 30px;
+    }
+    
+    .card-option {
+        flex: 1;
+        min-width: 250px;
+        max-width: 300px;
+    }
+    
+    .card-link {
+        display: block;
+        background: rgba(40, 40, 70, 0.6);
+        border-radius: 10px;
+        padding: 30px;
+        text-decoration: none;
+        color: var(--text-primary);
+        transition: all 0.3s ease;
+        border: 1px solid var(--border-color);
+        text-align: center;
+        height: 100%;
+    }
+    
+    .card-link:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        border-color: var(--accent-primary);
+        background: rgba(110, 69, 226, 0.2);
+    }
+    
+    .card-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: rgba(136, 211, 206, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        font-size: 1.5rem;
+        color: var(--accent-secondary);
+    }
+    
+    .card-link h3 {
+        color: var(--accent-secondary);
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+    }
+    
+    .card-link p {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+    
+    @media (max-width: 768px) {
+        .cards-container {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .card-option {
+            width: 100%;
+            max-width: 100%;
+        }
+    }
+</style>
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function() {
+    const rssButton = document.querySelector('a[href="{% url 'resultados_rss' %}"]');
+    
+    rssButton.addEventListener('click', function(e) {
+       
+        const overlay = document.createElement('div');
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.backgroundColor = 'rgba(10, 10, 26, 0.9)';
+        overlay.style.zIndex = '9999';
+        overlay.style.display = 'flex';
+        overlay.style.justifyContent = 'center';
+        overlay.style.alignItems = 'center';
+        overlay.style.flexDirection = 'column';
+        
+      
+        const spinner = document.createElement('div');
+        spinner.style.width = '50px';
+        spinner.style.height = '50px';
+        spinner.style.border = '5px solid rgba(136, 211, 206, 0.2)';
+        spinner.style.borderTop = '5px solid var(--accent-secondary)';
+        spinner.style.borderRadius = '50%';
+        spinner.style.animation = 'spin 1s linear infinite';
+        
+      
+        const text = document.createElement('p');
+        text.textContent = 'Ejecutando scraper RSS...';
+        text.style.marginTop = '20px';
+        text.style.color = 'var(--text-secondary)';
+        text.style.fontSize = '16px';
+        
+       
+        overlay.appendChild(spinner);
+        overlay.appendChild(text);
+        
+  
+        document.body.appendChild(overlay);
+        
+      
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+    });
+});
+</script>
+{% endblock %}

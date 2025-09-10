@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="content">
+    <h2><i class="fas fa-search"></i> Selecciona el tipo de búsqueda</h2>
+    
+    <div class="cards-grid">
+        
+        <div class="card-option">
+            <a href="/buscar/" class="card-link">
+                <div class="card-icon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <h3>Búsqueda de Empresas</h3>
+                <p>Encuentra noticias e información sobre empresas específicas</p>
+                <div class="card-features">
+                    <span class="feature-tag">Noticias</span>
+                    <span class="feature-tag">Información</span>
+                    <span class="feature-tag">Datos actualizados</span>
+                </div>
+            </a>
+        </div>
+        
+      
+        <div class="card-option">
+            <a href="/rssscraper/" class="card-link">
+                <div class="card-icon">
+                    <i class="fas fa-rss"></i>
+                </div>
+                <h3>RSS Scraper</h3>
+                <p>Obten datos a partir de fuentes RSS open source</p>
+                <div class="card-features">
+                    <span class="feature-tag">RSS</span>
+                    <span class="feature-tag">Tiempo real</span>
+                    <span class="feature-tag">Múltiples fuentes</span>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="cards-grid">
+        <div class="card-option">
+            <a href="/analiticas/" class="card-link">
+                <div class="card-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Analíticas</h3>
+                <p>Obtención de analíticas sobre tendencias</p>
+            </a>
+        </div>
+    </div>    
+</div>
+
+<style>
+    .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+        margin-top: 30px;
+    }
+    
+    .card-option {
+        transition: transform 0.3s ease;
+    }
+    
+    .card-option:hover {
+        transform: translateY(-5px);
+    }
+    
+    .card-link {
+        display: block;
+        background: rgba(40, 40, 70, 0.6);
+        border-radius: 12px;
+        padding: 30px;
+        text-decoration: none;
+        color: var(--text-primary);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .card-link:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .card-link:hover {
+        border-color: var(--accent-primary);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .card-link:hover:before {
+        opacity: 1;
+    }
+    
+    .card-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background: rgba(136, 211, 206, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        font-size: 2rem;
+        color: var(--accent-secondary);
+        transition: all 0.3s ease;
+    }
+    
+    .card-link:hover .card-icon {
+        background: var(--accent-primary);
+        color: white;
+        transform: scale(1.1);
+    }
+    
+    .card-link h3 {
+        color: var(--accent-secondary);
+        margin-bottom: 15px;
+        font-size: 1.4rem;
+        text-align: center;
+        transition: color 0.3s ease;
+    }
+    
+    .card-link:hover h3 {
+        color: var(--accent-primary);
+    }
+    
+    .card-link p {
+        color: var(--text-secondary);
+        text-align: center;
+        margin-bottom: 20px;
+        line-height: 1.5;
+    }
+    
+    .card-features {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 20px;
+    }
+    
+    .feature-tag {
+        background: rgba(110, 69, 226, 0.2);
+        color: var(--accent-secondary);
+        padding: 4px 10px;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        font-weight: 500;
+    }
+    
+    @media (max-width: 768px) {
+        .cards-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .card-link {
+            padding: 25px;
+        }
+        
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+        }
+        
+        .card-link h3 {
+            font-size: 1.2rem;
+        }
+    }
+</style>
+{% endblock %}
