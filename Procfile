@@ -1,1 +1,1 @@
-web: gunicorn webscraper.wsgi:application --bind 0.0.0.0:$PORT --workers 2
+web: gunicorn public_scraper.wsgi:application --bind 0.0.0.0:$PORT --workers 2
