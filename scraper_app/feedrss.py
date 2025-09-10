@@ -4,6 +4,9 @@ import json
 import html
 import unicodedata
 from urllib.parse import urlparse
+from datetime import datetime, timedelta
+import time
+from dateutil import parser
 
 def clean_text(text: str) -> str:
     # Eliminar HTML
@@ -48,9 +51,13 @@ def get_news_feed1(url ,limit: int = 1000):
     for entry in feed.entries[:limit]:
         title = clean_text(entry.title)
         description = clean_text(entry.get("summary", ""))
-        fecha = clean_text(entry.get("published", ""))
+        fecha_str = clean_text(entry.get("published", ""))
+        try:
+            fecha_obj = parser.parse(fecha_str)
+            publicado = fecha_obj.strftime("%Y-%m-%d")
+        except (ValueError, TypeError):
+            publicado = "Fecha no disponible"
         link = entry.get("source", {}).get("href", entry.link)
-
         parsed_url = urlparse(link)
         domain = parsed_url.netloc
 
@@ -59,7 +66,7 @@ def get_news_feed1(url ,limit: int = 1000):
         news_item = {
             "title": title,
             "description": description,
-            "fecha": fecha,
+            "fecha": publicado,
             "site_icon": site_icon,
             "link": link
         }

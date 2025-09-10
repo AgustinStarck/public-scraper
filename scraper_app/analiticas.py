@@ -9,4 +9,3 @@ def google_autocomplete(query):
     res = requests.get(url, params=params)
     return res.json()[1]  # Lista de sugerencias
 
-print(google_autocomplete("inteligencia artificial"))
