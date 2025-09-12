@@ -7,6 +7,7 @@ from urllib.parse import urlparse
 from datetime import datetime, timedelta
 import time
 from dateutil import parser
+import requests
 
 def clean_text(text: str) -> str:
     # Eliminar HTML
@@ -73,6 +74,12 @@ def get_news_feed1(url ,limit: int = 1000):
         news_list.append(news_item)
 
     return json.dumps(news_list, indent=4, ensure_ascii=False)
+
+def request_scraper():
+    response = requests.get("https://news-public-api.onrender.com/api/noticias/?limit=1000")
+
+    return response.json()
+
 
 
 

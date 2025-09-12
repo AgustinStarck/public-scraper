@@ -10,7 +10,7 @@ from openpyxl import Workbook
 from django.http import HttpResponse
 import csv
 from django.contrib import messages
-from .feedrss import get_news_feed1
+from .feedrss import get_news_feed1 , request_scraper
 from urllib.parse import urlparse
 import pandas as pd
 import re
@@ -192,7 +192,6 @@ def active_rss(request):
                
                 raw_news_data = get_news_feed1(url, limit=2000)
                 
-               
                 news_from_source = json.loads(raw_news_data)
                 
                 for news in news_from_source:
